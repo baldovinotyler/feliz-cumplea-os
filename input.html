@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumple Tyler</title>
+  <style>
+    :root {
+      --bg1: #0f1220;
+      --bg2: #1a1f35;
+      --accent: #f5c84d;
+      --text: #f4f7ff;
+      --card: rgba(20, 25, 43, 0.86);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(245, 200, 77, 0.18), transparent 28%),
+        radial-gradient(circle at 80% 80%, rgba(84, 211, 255, 0.12), transparent 26%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .card {
+      width: min(980px, 100%);
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(4px);
+      margin: 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(245, 200, 77, 0.2);
+      border: 1px solid rgba(245, 200, 77, 0.6);
+      color: #ffe9a8;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4.5vw, 3.4rem);
+      line-height: 1.1;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    }
+
+    .name {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sub {
+      margin: 12px auto 18px;
+      max-width: 760px;
+      color: #d9e2ff;
+      font-size: clamp(1rem, 2.3vw, 1.2rem);
+    }
+
+    .poster-wrap {
+      width: min(680px, 100%);
+      margin: 0 auto;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .poster-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    .footer {
+      margin-top: 16px;
+      font-weight: bold;
+      color: #ffdf7f;
+      font-size: clamp(1rem, 2.3vw, 1.3rem);
+    }
+
+    .action-row {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .emoji-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #1e1b0f;
+      background: linear-gradient(135deg, #ffd45f, #ffb347);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .emoji {
+      position: fixed;
+      top: -24px;
+      pointer-events: none;
+      z-index: 99;
+      animation: fall linear forwards;
+    }
+
+    .mj-drop {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.95;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge">Cumpleaños #12</div>
+    <h1>Feliz cumpleaños <span class="name">Tyler</span>!</h1>
+    <p class="sub">
+      Hoy cumplo <strong>12 años</strong>! hice esta pagina por todos las personas que me apoyaron,
+      gracias por todo.
+    </p>
+
+    <div class="poster-wrap">
+      <img
+        id="mainPoster"
+        src="https://i.pinimg.com/736x/8f/2d/41/8f2d4168026e73d48f14596854d10293.jpg"
+        alt="Poster de GTA V"
+      >
+    </div>
+
+    <p class="footer">Nivel 12 desbloqueado. A celebrar en grande!</p>
+    <div class="action-row">
+      <button id="emojiBtn" class="emoji-btn">Lluvia Michael Jackson 🕺</button>
+    </div>
+  </main>
+
+  <script>
+    const emojiBtn = document.getElementById("emojiBtn");
+    const mainPoster = document.getElementById("mainPoster");
+    const mjImages = [
+      "https://i.pinimg.com/736x/3f/c8/e5/3fc8e560da98f583396c31c6e9fc3cfd.jpg",
+      "https://i.pinimg.com/736x/a0/e2/ab/a0e2abd9a886d3d7a6624910c1bcdc63.jpg"
+    ];
+
+    if (mainPoster) {
+      mainPoster.addEventListener("error", () => {
+        mainPoster.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Grand_Theft_Auto_V_logo.svg/640px-Grand_Theft_Auto_V_logo.svg.png";
+      });
+    }
+
+    function spawnEmoji() {
+      const el = document.createElement("img");
+      el.className = "emoji mj-drop";
+      el.alt = "Michael Jackson";
+      el.src = mjImages[Math.floor(Math.random() * mjImages.length)];
+      el.addEventListener("error", () => {
+        el.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Michael_Jackson_in_1988.jpg/320px-Michael_Jackson_in_1988.jpg";
+      });
+      el.style.left = `${Math.random() * 100}vw`;
+      el.style.animationDuration = `${2.6 + Math.random() * 2.6}s`;
+      el.style.transform = `translateY(0) rotate(${Math.random() * 120}deg)`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 5500);
+    }
+
+    function emojiBlast() {
+      for (let i = 0; i < 90; i += 1) {
+        setTimeout(spawnEmoji, i * 35);
+      }
+    }
+
+    emojiBtn.addEventListener("click", emojiBlast);
+  </script>
+</body>
+</html>
